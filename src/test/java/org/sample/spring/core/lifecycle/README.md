@@ -16,6 +16,8 @@ Spring bean factory is responsible for managing the life cycle of beans created 
 :point_right:  Custom  `init()`  and  `destroy()`  methods in bean configuration file <br />
 :point_right:  JSR-250 i.e.`@PostConstruct`  and  `@PreDestroy`  annotations <br />
 
+#### Combining Lifecycle Mechanisms
+
 Multiple lifecycle mechanisms configured for the same bean, with different initialization methods, are called as follows:
 
 1.  Methods annotated with  `@PostConstruct`<br />
@@ -24,6 +26,6 @@ Multiple lifecycle mechanisms configured for the same bean, with different initi
 
 Destroy methods are called in the same order:
 
-5.  Methods annotated with  `@PreDestroy`<br />
-6.  `destroy()`  as defined by the  `DisposableBean`  callback interface <br />
-7.  A custom configured  `destroy()`  method <br />
+1.  Methods annotated with  `@PreDestroy`<br />
+2.  `destroy()`  as defined by the  `DisposableBean`  callback interface <br />
+3.  A custom configured  `destroy()`  method <br />
