@@ -7,18 +7,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @SpringBootApplication
 public class DefaultApplication {
 
-	private Logger logger = LoggerFactory.getLogger(DefaultApplication.class);
+	private static final Logger logger = LoggerFactory.getLogger(DefaultApplication.class);
 
 	public static void main(String[] args) {
-		SpringApplication.run(DefaultApplication.class, args);
+		new SpringApplicationBuilder(DefaultApplication.class).web(WebApplicationType.NONE).run(args);
 	}
 
 	@Bean
@@ -57,7 +58,7 @@ public class DefaultApplication {
  */
 class Foo implements InitializingBean, DisposableBean {
 
-	private Logger logger = LoggerFactory.getLogger(Foo.class);
+	private static final Logger logger = LoggerFactory.getLogger(Foo.class);
 
 	public Foo() {
 		logger.info(String.format("Create [%s] by [%s]", "Foo", "default constructor"));
@@ -77,7 +78,7 @@ class Foo implements InitializingBean, DisposableBean {
 @Component
 class Foo1 implements InitializingBean, DisposableBean {
 
-	private Logger logger = LoggerFactory.getLogger(Foo1.class);
+	private static final Logger logger = LoggerFactory.getLogger(Foo1.class);
 
 	public Foo1() {
 		logger.info(String.format("Create [%s] by [%s]", "Foo1", "default constructor"));
@@ -104,7 +105,7 @@ class Foo1 implements InitializingBean, DisposableBean {
  */
 class Boo {
 
-	private Logger logger = LoggerFactory.getLogger(Boo.class);
+	private static final Logger logger = LoggerFactory.getLogger(Boo.class);
 
 	public Boo() {
 		logger.info(String.format("Create [%s] by [%s]", "Boo", "default constructor"));
@@ -127,7 +128,7 @@ class Boo {
  */
 class Poo {
 
-	private Logger logger = LoggerFactory.getLogger(Poo.class);
+	private static final Logger logger = LoggerFactory.getLogger(Poo.class);
 
 	public Poo() {
 		logger.info(String.format("Create [%s] by [%s]", "Poo", "default constructor"));
@@ -152,7 +153,7 @@ class Poo {
 
 class Clue implements InitializingBean, DisposableBean {
 
-	private Logger logger = LoggerFactory.getLogger(Clue.class);
+	private static final Logger logger = LoggerFactory.getLogger(Clue.class);
 
 	public Clue() {
 		logger.info(String.format("Create [%s] by [%s]", "Clue", "default constructor"));
