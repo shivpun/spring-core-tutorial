@@ -20,7 +20,9 @@ public class BeanInheritanceApplication {
 		logger.info("Foo=> {}", ctx.getBean("foo", Foo.class));
 		logger.info("Boo=> {}", ctx.getBean("boo", Boo.class));
 		logger.info("booInstance=> {}", ctx.getBean("booInstance", Boo.class));
-		logger.info("coo=> {}", ctx.getBean("coo", Coo.class));
+		logger.info("Coo=> {}", ctx.getBean("coo", Coo.class));
+		logger.info("Foo=> {}", ctx.getBean("f1", Foo.class));
+		logger.info("Foo=> {}", ctx.getBean("f2", Foo.class));
 	}
 }
 
