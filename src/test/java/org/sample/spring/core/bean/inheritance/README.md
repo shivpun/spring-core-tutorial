@@ -11,6 +11,20 @@ You can define a parent bean definition as a template and other child beans can 
 	</bean>
 
 	<bean id="foo" parent="common" class="org.sample.spring.core.bean.inheritance.Foo"/>	
+	
+	OR
+	
+	<bean id="fooInherit" class="org.sample.spring.core.bean.inheritance.Foo" abstract="true" />
+
+	<bean id="f1" parent="fooInherit">
+		<property name="name" value="Sale Order" />
+		<property name="code" value="PQR" />
+	</bean>
+
+	<bean id="f2" parent="fooInherit">
+		<property name="name" value="Purchase Order" />
+		<property name="code" value="ABC" />
+	</bean>
 
 	public class Foo {
 
