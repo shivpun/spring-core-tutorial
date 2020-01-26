@@ -8,6 +8,21 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ImportResource;
 
+/**
+ * For XML:
+ * <bean id="common" abstract="true">
+ * 
+ * For Java:
+ * @Bean with Abstract class and parent concrete class.
+ * 
+ * When should we use abstract="true"
+ * 1. Multiple JMS configuration
+ * 2. Multiple JDBC configuration
+ * So such configuration has some basic property common in the Bean configuration like Transaction management.
+ * 
+ * 
+ **/
+
 @SpringBootApplication
 @ImportResource({ "classpath*:inheritance/inheritance-p0.xml" })
 public class BeanInheritanceApplication {
