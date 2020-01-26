@@ -78,6 +78,20 @@ public class DefaultBeanLifeCycleApplication {
  * 1.  postProcessBeforeDestruction methods of DestructionAwareBeanPostProcessors
  * 2.  DisposableBean's destroy
  * 3.  a custom destroy-method definition
+ * 
+ * https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-extension-bpp
+ * http://springcertified.com/2018/12/20/what-is-a-beanpostprocessor-and-how-is-it-different-to-a-beanfactorypostprocessor-what-do-they-do-when-are-they-called/
+ * Point :1.8. Container Extension Points
+ * 
+ * Q. Difference between BeanPostProcessor vs BeanFactoryPostProcessor
+ * ANS:
+ * 1. BeanFactoryPostProcessor 
+ * 	– operates on raw bean definitions, when the bean is not instantiated yet.
+ * 2. BeanPostProcessor 
+ * 	– operates on the already instantiated bean, with all dependencies (required and optional) already set by the ApplicationContext .
+ * 
+ * Similarity:
+ * 1. BeanFactoryPostProcessor,  BeanPostProcessor, FactoryBean are used to customized the Bean i.e. Container Extension Points.
  **/
 class FooApp implements ServletContextAware, MessageSourceAware, ApplicationContextAware, ApplicationEventPublisherAware, EmbeddedValueResolverAware, ResourceLoaderAware, InitializingBean, DisposableBean, BeanNameAware, BeanFactoryAware, BeanClassLoaderAware, EnvironmentAware, BeanPostProcessor, BeanFactoryPostProcessor {
 
