@@ -42,6 +42,11 @@ public class DefaultBeanLifeCycleApplication {
 		ctx.registerShutdownHook();
 	}
 	
+	@Bean(value = {"fooBeanProcess"})
+	public FooBeanProcess fooBeanProcess() {
+		return new FooBeanProcess();
+	}
+	
 	@Bean(value = {"fooApp"}, initMethod = "init")
 	public FooApp fooApp() {
 		return new FooApp();
@@ -78,8 +83,22 @@ public class DefaultBeanLifeCycleApplication {
  * 1.  postProcessBeforeDestruction methods of DestructionAwareBeanPostProcessors
  * 2.  DisposableBean's destroy
  * 3.  a custom destroy-method definition
+ * 
+ * https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-extension-bpp
+ * http://springcertified.com/2018/12/20/what-is-a-beanpostprocessor-and-how-is-it-different-to-a-beanfactorypostprocessor-what-do-they-do-when-are-they-called/
+ * Point :1.8. Container Extension Points
+ * 
+ * Q. Difference between BeanPostProcessor vs BeanFactoryPostProcessor
+ * ANS:
+ * 1. BeanFactoryPostProcessor 
+ * 	– operates on raw bean definitions, when the bean is not instantiated yet.
+ * 2. BeanPostProcessor 
+ * 	– operates on the already instantiated bean, with all dependencies (required and optional) already set by the ApplicationContext .
+ * 
+ * Similarity:
+ * 1. BeanFactoryPostProcessor,  BeanPostProcessor, FactoryBean are used to customized the Bean i.e. Container Extension Points.
  **/
-class FooApp implements ServletContextAware, MessageSourceAware, ApplicationContextAware, ApplicationEventPublisherAware, EmbeddedValueResolverAware, ResourceLoaderAware, InitializingBean, DisposableBean, BeanNameAware, BeanFactoryAware, BeanClassLoaderAware, EnvironmentAware, BeanPostProcessor, BeanFactoryPostProcessor {
+class FooApp implements ServletContextAware, MessageSourceAware, ApplicationContextAware, ApplicationEventPublisherAware, EmbeddedValueResolverAware, ResourceLoaderAware, InitializingBean, DisposableBean, BeanNameAware, BeanFactoryAware, BeanClassLoaderAware, EnvironmentAware {
 
 	private static final Logger logger = LoggerFactory.getLogger(FooApp.class);
 	
@@ -116,20 +135,6 @@ class FooApp implements ServletContextAware, MessageSourceAware, ApplicationCont
 	public void init() {
 		logger.info(String.format("Method: [%s] by [%s]", "init", "InitializingBean"));
 	}
-	
-	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-		logger.info(String.format("Method: [%s] by [%s] with bean name [%s]", "postProcessBeforeInitialization", "BeanPostProcessor", beanName));
-		return bean;
-	}
-	
-	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-		logger.info(String.format("Method: [%s] by [%s] with bean name [%s]", "postProcessAfterInitialization", "BeanPostProcessor", beanName));
-		return bean;
-	}
-	
-	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-		logger.info(String.format("Method: [%s] by [%s]", "postProcessBeanFactory", "BeanFactoryPostProcessor"));
-	}
 
 	@Override
 	public void setEnvironment(Environment environment) {
@@ -164,6 +169,28 @@ class FooApp implements ServletContextAware, MessageSourceAware, ApplicationCont
 	@Override
 	public void setServletContext(ServletContext servletContext) {
 		logger.info(String.format("Method: [%s] by [%s]", "setServletContext", "ServletContextAware"));		
+	}
+}
+
+class FooBeanProcess implements BeanPostProcessor, BeanFactoryPostProcessor {
+	
+	private static final Logger logger = LoggerFactory.getLogger(FooBeanProcess.class);
+	
+	@Override
+	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+		logger.info(String.format("Method: [%s] by [%s] with bean name [%s]", "postProcessBeforeInitialization", "BeanPostProcessor", beanName));
+		return bean;
+	}
+	
+	@Override
+	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+		logger.info(String.format("Method: [%s] by [%s] with bean name [%s]", "postProcessAfterInitialization", "BeanPostProcessor", beanName));
+		return bean;
+	}
+	
+	@Override
+	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+		logger.info(String.format("Method: [%s] by [%s]", "postProcessBeanFactory", "BeanFactoryPostProcessor"));
 	}
 }
 
