@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<bean id="common" abstract="true">
+		<property name="name" value="Product" />
+		<property name="code" value="ABC" />
+	</bean>
+
+	<bean id="booCommon" abstract="true">
+		<property name="name" value="Purchase" />
+		<property name="code" value="PQR" />
+	</bean>
+
+	<bean id="foo" parent="common"
+		class="org.sample.spring.core.bean.inheritance.Foo" />
+
+	<bean id="fooInherit"
+		class="org.sample.spring.core.bean.inheritance.Foo" abstract="true" />
+
+	<bean id="f1" parent="fooInherit">
+		<property name="name" value="Sale Order" />
+		<property name="code" value="PQR" />
+	</bean>
+
+	<bean id="f2" parent="fooInherit">
+		<property name="name" value="Purchase Order" />
+		<property name="code" value="ABC" />
+	</bean>
+
+	<bean id="coo" parent="common"
+		class="org.sample.spring.core.bean.inheritance.Coo" />
+
+	<!-- A static factory method that returns instance of its own class. It 
+		is used in singleton design pattern. -->
+	<bean id="boo" parent="booCommon"
+		class="org.sample.spring.core.bean.inheritance.Boo"
+		factory-method="staticMethodCall">
+		<property name="name" value="#{foo.code}" />
+	</bean>
+
+	<bean id="aoo" class="org.sample.spring.core.bean.inheritance.Aoo" />
+
+	<!-- A non-static factory method that returns instance of another class. 
+		It is used instance is not known and decided at runtime. -->
+	<bean id="booInstance" parent="booCommon"
+		class="org.sample.spring.core.bean.inheritance.Boo" factory-bean="aoo"
+		factory-method="createBoo">
+		<property name="name" value="Aoo_#{foo.code}" />
+	</bean>
+</beans>	
