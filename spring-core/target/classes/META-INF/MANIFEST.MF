@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Build-Jdk-Spec: 16
-Implementation-Title: spring-core-tutorial
-Implementation-Version: 1.0.0-SNAPSHOT
-Main-Class: org.sample.spring.core.Application
-Created-By: Maven Integration for Eclipse
-
