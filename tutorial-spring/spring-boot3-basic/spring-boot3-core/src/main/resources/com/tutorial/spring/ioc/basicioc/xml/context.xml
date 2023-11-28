@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd ">
+
+    <context:property-placeholder location="/com/tutorial/spring/ioc/config.properties"/>
+
+    <bean class="com.tutorial.spring.ioc.basicioc.xml.CustomerService">
+        <property name="dataSource" ref="ds"/>
+    </bean>
+
+    <bean id="ds" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="url" value="${ds.url}"/>
+        <property name="driverClass" value="${ds.driverClassName}"/>
+    </bean>
+</beans>

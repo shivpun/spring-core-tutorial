@@ -1,0 +1,17 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.tutorial.spring</groupId>
+		<artifactId>spring-boot3-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../spring-boot3-parent</relativePath>
+	</parent>
+
+	<artifactId>spring-boot3-basic</artifactId>
+	<packaging>pom</packaging>
+	<modules>
+		<module>spring-boot3-core</module>
+	</modules>
+</project>
